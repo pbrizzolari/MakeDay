@@ -1,10 +1,5 @@
 ﻿<Properties StartupConfiguration="{95231B7B-C8AE-15D9-DF67-244003CBCD77}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Vuforia/Scripts/DefaultTrackableEventHandler.cs">
-    <Files>
-      <File FileName="Assets/Vuforia/Scripts/DefaultInitializationErrorHandler.cs" Line="32" Column="5" />
-      <File FileName="Assets/Vuforia/Scripts/DefaultTrackableEventHandler.cs" Line="1" Column="1" />
-    </Files>
-  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
