@@ -30,7 +30,10 @@ public class CarScript: MonoBehaviour {
             foreach (var component in particleComponents)
             {
                 component.enableEmission = true;
-                StartCoroutine(GetQuote("test"));
+
+                Quotes quotes = new Quotes();
+                quotes.GetQuote();
+                //StartCoroutine(GetQuote("test"));
             }
         }
     }
@@ -46,21 +49,19 @@ public class CarScript: MonoBehaviour {
     }
 
     private IEnumerator GetQuote(string obj){
-        using (UnityWebRequest www = UnityWebRequest.Post(@"https://sandbox.root.co.za/v1/insurance/quote", @"{""type"": ""root_term"",
-            ""cover_amount"": 100000000,
-            ""cover_period"": ""2_years"",
-            ""basic_income_per_month"": 2000000,
-            ""education_status"": ""undergraduate_degree"",
-            ""smoker"": false,
-            ""gender"": ""male"",
-            ""age"": 29
-            }")){
+        var BodyText = "{\"type\":\"root_term\",\"cover_amount\":100000000,\"cover_period\":\"2_years\",\"basic_income_per_month\":2000000,\"education_status\":\"undergraduate_degree\",\"smoker\":false,\"gender\":\"male\",\"age\":29}";
+        using (UnityWebRequest www = UnityWebRequest.Post(@"https://sandbox.root.co.za/v1/insurance/quote", BodyText)){
             byte[] bytesToEncode = Encoding.UTF8.GetBytes("sandbox_NTExYWRhN2YtYTM5My00ODM4LTgyYmUtNzNlYjY4YjU5YjI3LkpGenlScE5OQUpOdGJxRVpVRnZNOEo5LWhnWUZMSU9M:");
             string encodedText = Convert.ToBase64String(bytesToEncode);
-            www.SetRequestHeader("basic", encodedText);
+            www.SetRequestHeader("authorization", "basic "+encodedText);
             www.SetRequestHeader("Content-Type", "application/json");
+            //Debug.Log(www.GetRequestHeader("basic"));
+            Debug.Log(www.GetRequestHeader("Content-Type"));
+            Debug.Log(www.uploadedBytes.ToString());
+            www.chunkedTransfer = false;
             yield return www.SendWebRequest();
 
+            Debug.Log(www.responseCode);
             if(www.isNetworkError || www.isHttpError){
                 Debug.Log(www.error);
             }else{
